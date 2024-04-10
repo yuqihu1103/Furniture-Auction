@@ -13,6 +13,7 @@ import addFurnitureRouter from "./routes/add_furniture.js";
 import furnitureByLikesRouter from "./routes/furniture_by_likes.js";
 import furnitureByTypeRouter from "./routes/furniture_by_type.js";
 import viewedRouter from "./routes/recent_viewed.js";
+import viewAndLikeRouter from "./routes/add_view_or_like.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -43,7 +44,8 @@ app.get("/test", (req, res) => {
 app.post("/login", loginRouter);
 app.get("/logout", logoutRouter);
 app.post("/register", registerRouter);
-
+app.post("/view", viewAndLikeRouter);
+app.post("/like", viewAndLikeRouter);
 app.get("/viewed", viewedRouter);
 app.get("/furniture", furnitureRouter);
 app.post("/add_furniture", addFurnitureRouter);
