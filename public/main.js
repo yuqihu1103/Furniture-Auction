@@ -1,26 +1,72 @@
 
+document.addEventListener("DOMContentLoaded", () => {
+    const listFurn = document.getElementById("furniture-list");
+    const button = document.getElementById("showFurniture");
+    const button1 = document.getElementById("orderByLikes");
+    button.addEventListener("click", async (event) => {
+      event.preventDefault();
+      console.log("event")
+      listFurn.innerHTML = "";
+      try {
+        const response = await fetch("/furniture", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(),
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
 
-const furnitureUIElement = document.getElementById("furniture-list");
+            for(let i = 0; i < data.length; i++){
 
-const furnitureObject = {
+                listFurn.innerHTML += "<li>" + "Furniture ID : " + data[i].furniture_id + " Type :" + data[i].type 
+                + " Description : " + data[i].description + "<img src="+ data[i].picture_urls +" width=300px> " + "</img>" + 
+                " Seller ID : " + data[i].seller_id + " Condition : "+ data[i].condition +  "</li>";
+        
+            }
 
-    furnitureName : "nice-couch",
-    furnitureType : "couch"
+        } else {
+            listFurn.innerHTML = data.error;
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
 
-} 
-
-const tempList = [furnitureObject,furnitureObject,furnitureObject,furnitureObject,furnitureObject];
-
-export function populateFurniture(furnitureList){
-
-    console.log(furnitureList.length)
-    for(let i = 0; i < furnitureList.length; i++){
-
-        furnitureUIElement.innerHTML += "<li>" + furnitureList[i].furnitureName + "</li>";
-
-    }
-
-
-}
-
-populateFurniture(tempList);
+    button1.addEventListener("click", async (event) => {
+        event.preventDefault();
+        console.log("event")
+        listFurn.innerHTML = "";
+        try {
+          const response = await fetch("/furniture_likes", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(),
+          });
+    
+          const data = await response.json();
+    
+          if (response.ok) {
+  
+              for(let i = 0; i < data.length; i++){
+  
+                  listFurn.innerHTML += "<li>" + "Furniture ID : " + data[i].furniture_id + " Type :" + data[i].type 
+                  + " Description : " + data[i].description + "<img src="+ data[i].picture_urls +" width=300px> " + "</img>" + 
+                  " Seller ID : " + data[i].seller_id + " Condition : "+ data[i].condition + " Likes : " + data[i].like_count + "</li>";
+          
+              }
+  
+          } else {
+            console.log("Adaddsasdas");
+              listFurn.innerHTML = data.error;
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+  });
