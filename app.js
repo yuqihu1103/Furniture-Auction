@@ -8,12 +8,13 @@ import { connectToDatabase } from "./db/db.js";
 import loginRouter from "./routes/login.js";
 import logoutRouter from "./routes/logout.js";
 import registerRouter from "./routes/register.js";
-import furnitureRouter from "./routes/furniture.js";
+import furnitureRouter from "./routes/all_furniture.js";
 import addFurnitureRouter from "./routes/add_furniture.js";
 import furnitureByLikesRouter from "./routes/furniture_by_likes.js";
 import furnitureByTypeRouter from "./routes/furniture_by_type.js";
 import viewedRouter from "./routes/recent_viewed.js";
 import viewAndLikeRouter from "./routes/add_view_or_like.js";
+import myListingRouter from "./routes/my_listings.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -41,16 +42,49 @@ app.get("/test", (req, res) => {
   res.status(200).json({ message: "Test success!" });
 });
 
+//logs the user in
+//need username and password
 app.post("/login", loginRouter);
+
+//logs the current user out
+//no request body
 app.get("/logout", logoutRouter);
+
+//register new user
+//need username and password (phone optional)
 app.post("/register", registerRouter);
+
+//record a user's view on a furniture
+//need the furnitureID
 app.post("/view", viewAndLikeRouter);
+
+//record a user's like on a furniture
+//need the furnitureID
 app.post("/like", viewAndLikeRouter);
+
+//get all of user's viewed furniture, ordered by view time
+//no request body
 app.get("/viewed", viewedRouter);
+
+//get all furniture
+//no request body
 app.get("/furniture", furnitureRouter);
+
+//add a new furniture
+//need type, description, picture_urls, condition
 app.post("/add_furniture", addFurnitureRouter);
+
+//get all furniture, ranked by likes
+//no request body
 app.get("/furniture_likes", furnitureByLikesRouter);
+
+//get all furniture of a certain type
+//need type (such as "desk")
 app.get("/furniture_type", furnitureByTypeRouter);
+
+//get all furniture listed by current user
+//no request body
+app.get("my_listing", myListingRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
