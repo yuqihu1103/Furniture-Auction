@@ -23,6 +23,7 @@ import placeBidRouter from "./routes/place_bid.js";
 import getBidsRouter from "./routes/get_bids.js";
 import makePaymentRouter from "./routes/make_payment.js";
 import rateRouter from "./routes/rate.js";
+import furnitureByRatingRouter from "./routes/furniture_by_seller_rating.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -129,6 +130,8 @@ app.post("/make_payment", makePaymentRouter);
 //winning bidder can rate the seller of the auction
 //need auctionId and rating
 app.post("/rate", rateRouter);
+
+app.get("/furniture_ranked_by_rating", furnitureByRatingRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
