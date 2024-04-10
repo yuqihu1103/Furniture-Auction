@@ -18,6 +18,7 @@ import myListingRouter from "./routes/my_listings.js";
 import allUserRouter from "./routes/all_users.js";
 import chatRouter from "./routes/chat.js";
 import startAuctionRouter from "./routes/start_auction.js";
+import ongoingAuctionsRouter from "./routes/ongoing_auctions.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -104,6 +105,10 @@ app.get("/chat_history", chatRouter);
 //starts an auction for a furniture listed by current user
 //need furnitureID, startPrice
 app.post("/start_auction", startAuctionRouter);
+
+//gets info of all ongoing auctions
+//no request body
+app.get("/ongoing_auctions", ongoingAuctionsRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
