@@ -19,6 +19,7 @@ import allUserRouter from "./routes/all_users.js";
 import chatRouter from "./routes/chat.js";
 import startAuctionRouter from "./routes/start_auction.js";
 import ongoingAuctionsRouter from "./routes/ongoing_auctions.js";
+import placeBidRouter from "./routes/place_bid.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -109,6 +110,10 @@ app.post("/start_auction", startAuctionRouter);
 //gets info of all ongoing auctions
 //no request body
 app.get("/ongoing_auctions", ongoingAuctionsRouter);
+
+//places a bid for an ongoing auction
+//need auctionID and bidPrice
+app.post("/place_bid", placeBidRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
