@@ -15,6 +15,8 @@ import furnitureByTypeRouter from "./routes/furniture_by_type.js";
 import viewedRouter from "./routes/recent_viewed.js";
 import viewAndLikeRouter from "./routes/add_view_or_like.js";
 import myListingRouter from "./routes/my_listings.js";
+import allUserRouter from "./routes/all_users.js";
+import chatRouter from "./routes/chat.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -84,7 +86,19 @@ app.get("/furniture_type", furnitureByTypeRouter);
 
 //get all furniture listed by current user
 //no request body
-app.get("my_listing", myListingRouter);
+app.get("/my_listing", myListingRouter);
+
+//get all users (for chat)
+//no request body
+app.get("/users", allUserRouter);
+
+//sends a message from current user to another
+//need receiverUsername and content
+app.post("/send_message", chatRouter);
+
+//gets all messages betwwen current user and another
+//need receiverUsername
+app.get("/chat_history", chatRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
