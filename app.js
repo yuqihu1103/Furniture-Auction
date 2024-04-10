@@ -8,6 +8,7 @@ import { connectToDatabase } from "./db/db.js";
 import loginRouter from "./routes/login.js";
 import registerRouter from "./routes/register.js";
 import furnitureRouter from "./routes/furniture.js";
+import furnitureByLikesRouter from "./routes/furniture_by_likes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -29,6 +30,7 @@ app.get("/test", (req, res) => {
 app.post("/login", loginRouter);
 app.post("/register", registerRouter);
 app.get("/furniture", furnitureRouter);
+app.get("/furniture_likes", furnitureByLikesRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
