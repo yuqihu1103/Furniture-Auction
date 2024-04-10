@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { connectToDatabase } from "./db/db.js";
+import loginRouter from "./routes/login.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,6 +24,8 @@ app.get("/test", (req, res) => {
   res.status(200).json({ message: "Test success!" });
 });
 
+app.post("/login", loginRouter);
+
 // Start your server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -30,4 +33,5 @@ app.listen(PORT, () => {
 });
 
 connectToDatabase();
+console.log("Connected to MySQL database");
 export default app;

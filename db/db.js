@@ -19,7 +19,6 @@ export function connectToDatabase() {
       console.error("Error connecting to MySQL database:", err);
       return;
     }
-    console.log("Connected to MySQL database");
   });
 
   // Handle unexpected errors and close the connection
