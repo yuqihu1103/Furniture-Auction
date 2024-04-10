@@ -22,6 +22,7 @@ import ongoingAuctionsRouter from "./routes/ongoing_auctions.js";
 import placeBidRouter from "./routes/place_bid.js";
 import getBidsRouter from "./routes/get_bids.js";
 import makePaymentRouter from "./routes/make_payment.js";
+import rateRouter from "./routes/rate.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -62,11 +63,11 @@ app.get("/logout", logoutRouter);
 app.post("/register", registerRouter);
 
 //record a user's view on a furniture
-//need the furnitureID
+//need the furnitureId
 app.post("/view", viewAndLikeRouter);
 
 //record a user's like on a furniture
-//need the furnitureID
+//need the furnitureId
 app.post("/like", viewAndLikeRouter);
 
 //get all of user's viewed furniture, ordered by view time
@@ -106,7 +107,7 @@ app.post("/send_message", chatRouter);
 app.get("/chat_history", chatRouter);
 
 //starts an auction for a furniture listed by current user
-//need furnitureID, startPrice
+//need furnitureId, startPrice
 app.post("/start_auction", startAuctionRouter);
 
 //gets info of all ongoing auctions
@@ -114,16 +115,20 @@ app.post("/start_auction", startAuctionRouter);
 app.get("/ongoing_auctions", ongoingAuctionsRouter);
 
 //places a bid for an ongoing auction
-//need auctionID and bidPrice
+//need auctionId and bidPrice
 app.post("/place_bid", placeBidRouter);
 
 //gets all bids info for an auctiono
-//need auctionID
+//need auctionId
 app.get("/get_bids", getBidsRouter);
 
 //creates a payment for an auction won by current user
-//need auctionID, sender_account, receiver_account, amount, is_by_check
+//need auctionId, sender_account, receiver_account, amount, is_by_check
 app.post("/make_payment", makePaymentRouter);
+
+//winning bidder can rate the seller of the auction
+//need auctionId and rating
+app.post("/rate", rateRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
