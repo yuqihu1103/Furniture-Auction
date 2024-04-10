@@ -17,6 +17,7 @@ import viewAndLikeRouter from "./routes/add_view_or_like.js";
 import myListingRouter from "./routes/my_listings.js";
 import allUserRouter from "./routes/all_users.js";
 import chatRouter from "./routes/chat.js";
+import startAuctionRouter from "./routes/start_auction.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -99,6 +100,10 @@ app.post("/send_message", chatRouter);
 //gets all messages betwwen current user and another
 //need receiverUsername
 app.get("/chat_history", chatRouter);
+
+//starts an auction for a furniture listed by current user
+//need furnitureID, startPrice
+app.post("/start_auction", startAuctionRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
