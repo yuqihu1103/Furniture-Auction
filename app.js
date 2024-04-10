@@ -24,6 +24,7 @@ import getBidsRouter from "./routes/get_bids.js";
 import makePaymentRouter from "./routes/make_payment.js";
 import rateRouter from "./routes/rate.js";
 import furnitureByRatingRouter from "./routes/furniture_by_seller_rating.js";
+import addressRouter from "./routes/address.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -124,14 +125,20 @@ app.post("/place_bid", placeBidRouter);
 app.get("/get_bids", getBidsRouter);
 
 //creates a payment for an auction won by current user
-//need auctionId, sender_account, receiver_account, amount, is_by_check
+//need auctionId, sender_account, receiver_account, amount, is_by_check (0 or 1)
 app.post("/make_payment", makePaymentRouter);
 
 //winning bidder can rate the seller of the auction
 //need auctionId and rating
 app.post("/rate", rateRouter);
 
+//get all furniture ranked by seller's average rating
+//no request body
 app.get("/furniture_ranked_by_rating", furnitureByRatingRouter);
+
+//adds an address of the current user
+//need description, isPrimary (0 or 1)
+app.post("/add_address", addressRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
