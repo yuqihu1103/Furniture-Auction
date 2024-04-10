@@ -88,6 +88,8 @@ router.post("/place_bid", (req, res) => {
               return res.status(500).json({ error: "Internal server error" });
             }
 
+            const insertedBidId = results.insertId; // Get the last inserted ID
+
             // Update the maximum bid price
             const updateMaxBidPriceQuery =
               "UPDATE auction SET max_bid_price = ? WHERE auction_id = ?";
@@ -100,6 +102,24 @@ router.post("/place_bid", (req, res) => {
                   return res
                     .status(500)
                     .json({ error: "Internal server error" });
+                }
+
+                // Update the winning bid if necessary
+                if (!auction.winning_bid || bidPrice > auction.max_bid_price) {
+                  const updateWinningBidQuery =
+                    "UPDATE auction SET winning_bid = ? WHERE auction_id = ?";
+                  connection.query(
+                    updateWinningBidQuery,
+                    [insertedBidId, auctionId], // Use the correct insertedBidId
+                    (error, results) => {
+                      if (error) {
+                        console.error("Error updating winning bid:", error);
+                        return res
+                          .status(500)
+                          .json({ error: "Internal server error" });
+                      }
+                    }
+                  );
                 }
 
                 return res
