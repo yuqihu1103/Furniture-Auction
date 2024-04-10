@@ -7,7 +7,7 @@ const router = express.Router();
 // Register Route
 router.post("/register", (req, res) => {
   // Extract data from the request body
-  const { username, password } = req.body;
+  const { username, password, phone } = req.body;
 
   // Check if username and password are provided
   if (!username || !password) {
@@ -42,10 +42,10 @@ router.post("/register", (req, res) => {
 
         // Insert user into the users table
         const userQuery =
-          "INSERT INTO users (username, password) VALUES (?, ?)";
+          "INSERT INTO users (username, password, phone) VALUES (?, ?, ?)";
         connection.query(
           userQuery,
-          [username, password],
+          [username, password, phone],
           (error, results, fields) => {
             if (error) {
               console.error("Error creating user:", error);
