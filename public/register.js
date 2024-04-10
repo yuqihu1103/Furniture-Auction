@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const loginSuccessDiv = document.getElementById("RegisterSuccess");
+  const redirect = document.getElementById("redirect");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         loginSuccessDiv.textContent = data.message;
+        redirect.innerHTML = `<a href="login.html" id="loginUI">Login now</a>`;
       } else {
         loginSuccessDiv.textContent = data.error;
       }
