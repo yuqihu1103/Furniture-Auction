@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
-    const loginSuccessDiv = document.getElementById("loginSuccess");
+    const loginSuccessDiv = document.getElementById("RegisterSuccess");
   
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = formData.get("password");
   
       try {
-        const response = await fetch("/login", {
+        const response = await fetch("/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
