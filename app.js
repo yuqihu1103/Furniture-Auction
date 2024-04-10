@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { connectToDatabase } from "./db/db.js";
 import loginRouter from "./routes/login.js";
+import registerRouter from "./routes/register.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,6 +26,7 @@ app.get("/test", (req, res) => {
 });
 
 app.post("/login", loginRouter);
+app.post("/register", registerRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
