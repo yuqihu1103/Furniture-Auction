@@ -7,7 +7,7 @@ const router = express.Router();
 // Register Route
 router.post("/register", (req, res) => {
   // Extract data from the request body
-  const { username, password, phone } = req.body;
+  const { username, password, phone, admin } = req.body;
 
   // Check if username and password are provided
   if (!username || !password) {
@@ -57,25 +57,15 @@ router.post("/register", (req, res) => {
             // Get the user ID of the inserted user
             const userId = results.insertId;
 
-            // Insert user as both bidder and seller
-            const bidderQuery = "INSERT INTO bidder (user_id) VALUES (?)";
-            const sellerQuery = "INSERT INTO seller (user_id) VALUES (?)";
-            connection.query(bidderQuery, [userId], (err, results) => {
-              if (err) {
-                console.error("Error creating bidder:", err);
-                connection.rollback(() => {
-                  res.status(500).json({ error: "Internal server error" });
-                });
-              }
-              connection.query(sellerQuery, [userId], (err, results) => {
+            if (admin == "Admin") {
+              const adminQuery = "INSERT INTO admins (user_id) VALUES (?)";
+              connection.query(adminQuery, [userId], (err, results) => {
                 if (err) {
-                  console.error("Error creating seller:", err);
+                  console.error("Error creating admin:", err);
                   connection.rollback(() => {
                     res.status(500).json({ error: "Internal server error" });
                   });
                 }
-
-                // Commit transaction
                 connection.commit((err) => {
                   if (err) {
                     console.error("Error committing transaction:", err);
@@ -87,10 +77,47 @@ router.post("/register", (req, res) => {
                   // Transaction successful
                   res
                     .status(200)
-                    .json({ message: "User registered successfully" });
+                    .json({ message: "Admin user registered successfully" });
                 });
               });
-            });
+            } else {
+              // Insert user as both bidder and seller
+              const bidderQuery = "INSERT INTO bidder (user_id) VALUES (?)";
+              const sellerQuery = "INSERT INTO seller (user_id) VALUES (?)";
+              connection.query(bidderQuery, [userId], (err, results) => {
+                if (err) {
+                  console.error("Error creating bidder:", err);
+                  connection.rollback(() => {
+                    res.status(500).json({ error: "Internal server error" });
+                  });
+                }
+                connection.query(sellerQuery, [userId], (err, results) => {
+                  if (err) {
+                    console.error("Error creating seller:", err);
+                    connection.rollback(() => {
+                      res.status(500).json({ error: "Internal server error" });
+                    });
+                  }
+
+                  // Commit transaction
+                  connection.commit((err) => {
+                    if (err) {
+                      console.error("Error committing transaction:", err);
+                      connection.rollback(() => {
+                        res
+                          .status(500)
+                          .json({ error: "Internal server error" });
+                      });
+                    }
+
+                    // Transaction successful
+                    res
+                      .status(200)
+                      .json({ message: "User registered successfully" });
+                  });
+                });
+              });
+            }
           }
         );
       });

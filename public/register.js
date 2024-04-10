@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const username = formData.get("username");
     const password = formData.get("password");
     const phone = formData.get("phoneNum");
+    const admin = formData.get("isAdmin");
 
     try {
       const response = await fetch("/register", {
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password, phone }),
+        body: JSON.stringify({ username, password, phone, admin }),
       });
 
       const data = await response.json();
