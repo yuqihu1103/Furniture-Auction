@@ -1,4 +1,3 @@
-// Import required modules
 import express from "express";
 import { connectToDatabase } from "../db/db.js"; // Adjust the path as per your project structure
 
@@ -34,6 +33,8 @@ router.post("/login", (req, res) => {
     // Retrieve user information
     const user = results[0];
     if (password == user.password) {
+      // Store the user ID in the session
+      req.session.userId = user.user_id;
       return res.status(200).json({ message: "Login successful" });
     } else {
       return res.status(401).json({ error: "Invalid username or password" });
