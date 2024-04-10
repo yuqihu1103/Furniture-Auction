@@ -21,6 +21,7 @@ import startAuctionRouter from "./routes/start_auction.js";
 import ongoingAuctionsRouter from "./routes/ongoing_auctions.js";
 import placeBidRouter from "./routes/place_bid.js";
 import getBidsRouter from "./routes/get_bids.js";
+import makePaymentRouter from "./routes/make_payment.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -119,6 +120,10 @@ app.post("/place_bid", placeBidRouter);
 //gets all bids info for an auctiono
 //need auctionID
 app.get("/get_bids", getBidsRouter);
+
+//creates a payment for an auction won by current user
+//need auctionID, sender_account, receiver_account, amount, is_by_check
+app.post("/make_payment", makePaymentRouter);
 
 // Start your server
 const PORT = process.env.PORT || 3000;
