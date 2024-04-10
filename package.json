@@ -1,5 +1,6 @@
 {
   "name": "furniture-auction",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -8,5 +9,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Yuqi Hu",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@mysql/xdevapi": "^8.0.35",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mysql": "^2.18.1"
+  }
 }
