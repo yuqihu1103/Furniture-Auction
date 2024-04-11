@@ -25,7 +25,7 @@ import makePaymentRouter from "./routes/make_payment.js";
 import rateRouter from "./routes/rate.js";
 import furnitureByRatingRouter from "./routes/furniture_by_seller_rating.js";
 import addressRouter from "./routes/address.js";
-
+import auctionByIdRouter from "./routes/auction_by_id.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -59,6 +59,11 @@ app.post("/login", loginRouter);
 //logs the current user out
 //no request body
 app.get("/logout", logoutRouter);
+
+
+//get auction detail
+app.get("/auctions/:id", auctionByIdRouter);
+
 
 //register new user
 //need username and password (phone optional)
