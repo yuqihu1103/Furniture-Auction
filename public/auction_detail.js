@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch(`/auctions/${auctionId}`);
             const data = await response.json();
             if (response.ok) {
-                const auction = data.auction[0];
+                const auction = data.auction;
                 document.getElementById('auction-image').src = auction.picture_urls;
                 // Create a new row for each attribute in the auction object
                 const table = document.getElementById('auction-info-table');
