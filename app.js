@@ -127,7 +127,7 @@ app.post("/place_bid", placeBidRouter);
 
 //gets all bids info for an auctiono
 //need auctionId
-app.get("/get_bids", getBidsRouter);
+app.get("/get_bids/:id", getBidsRouter);
 
 //creates a payment for an auction won by current user
 //need auctionId, sender_account, receiver_account, amount, is_by_check (0 or 1)

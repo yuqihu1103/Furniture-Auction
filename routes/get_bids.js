@@ -4,8 +4,8 @@ import { connectToDatabase } from "../db/db.js"; // Import your database connect
 const router = express.Router();
 
 // Route to get all bids in an auction
-router.get("/get_bids", (req, res) => {
-  const { auctionId } = req.body;
+router.get("/get_bids/:id", (req, res) => {
+  const auctionId = req.params.id;
 
   // Connect to the database
   const connection = connectToDatabase();

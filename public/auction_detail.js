@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const auctionResultDiv = document.getElementById("auction-result");
     const bidResultDiv = document.getElementById("bid-result");
     const bidBtn = document.getElementById("bid-btn");
+    const showBidBtn = document.getElementById("show-bid-btn");
+    const showBidResultDiv = document.getElementById("show-bid-result");
+    const bidTable = document.getElementById("bidTable");
     queryBtn.addEventListener("click", async (event) => {
         event.preventDefault();
         const auctionId = document.getElementById('auction-id').value;
@@ -18,6 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 while (table.rows.length > 0) {
                     table.deleteRow(0);
                 }
+                while (bidTable.rows.length > 1) {
+                    bidTable.deleteRow(bidTable.rows.length - 1);
+                }
+                bidTable.style.display = "none";
                 for (const [key, value] of Object.entries(auction)) {
                     const row = table.insertRow();
                     const cell1 = row.insertCell(0);
@@ -43,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     bidBtn.addEventListener("click", async (event) => {
         event.preventDefault();
-        const bidPrice = document.getElementById('auction-id').value;
+        const bidPrice = document.getElementById('bid-price').value;
         const auctionId = document.getElementById('auction-id').value;
         try {
             const response = await fetch("/place_bid", {
@@ -62,6 +69,36 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error("Error:", error);
             bidResultDiv.textContent =
+                "An error occurred. Please try again later.";
+        }
+    });
+
+    showBidBtn.addEventListener("click", async (event) => {
+        event.preventDefault();
+        const auctionId = document.getElementById('auction-id').value;
+        try {
+            const response = await fetch(`/get_bids/${auctionId}`);
+            const data = await response.json();
+            if (response.ok) {
+                const bids = data.bids;
+                while (bidTable.rows.length > 1) {
+                    bidTable.deleteRow(bidTable.rows.length - 1);
+                }
+                bids.forEach(bid => {
+                    const row = bidTable.insertRow();
+                    row.insertCell(0).textContent = bid.bid_id;
+                    row.insertCell(1).textContent = bid.bid_price.toFixed(2);
+                    row.insertCell(2).textContent = new Date(bid.bid_time).toLocaleString();
+                    row.insertCell(3).textContent = bid.bidder_id;
+                    row.insertCell(4).textContent = bid.username;
+                });
+                bidTable.style.display = "block";
+            } else {
+                showBidResultDiv.textContent = data.error;
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            showBidResultDiv.textContent =
                 "An error occurred. Please try again later.";
         }
     });
