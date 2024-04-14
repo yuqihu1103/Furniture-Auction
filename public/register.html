@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="./style.css">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Page Title</title>
@@ -8,21 +9,23 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script type="module" src="register.js"></script>
   </head>
-  <body>
-    <form>
-      <label for="username">Set username:</label><br />
-      <input type="text" id="C" name="username" /><br />
-      <label for="password">Set password:</label><br />
-      <input type="text" id="password" name="password" /><br />
-      <label for="isAdmin"> Is Admin?</label>
-      <input type="checkbox" id="isAdmin" name="isAdmin" value="Admin" /><br />
-      <label for="phoneNum">Phone Number (Optional):</label><br />
-      <input type="text" id="phoneNum" name="phoneNum" />
+  <body class="register-page">
+    <div id="register-container">
+      <form>
+        <label for="username">Set username:</label><br />
+        <input type="text" id="C" name="username" /><br />
+        <label for="password">Set password:</label><br />
+        <input type="password" id="password" name="password" /><br />
+        <label for="isAdmin"> Are you an Admin User?</label>
+        <input type="checkbox" id="isAdmin" name="isAdmin" value="Admin" /><br />
+        <label for="phoneNum">Phone Number (Optional):</label><br />
+        <input type="text" id="phoneNum" name="phoneNum" />
 
-      <input type="submit" value="Submit" />
-    </form>
+        <input type="submit" value="Submit" />
+      </form>
 
-    <div id="RegisterSuccess"></div>
-    <div id="redirect"></div>
+      <div id="RegisterSuccess"></div>
+      <div id="redirect"></div>
+    </div>
   </body>
 </html>

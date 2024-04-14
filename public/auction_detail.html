@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="./style.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Auction</title>
   <script type='module' src='auction_detail.js'></script>
 </head>
 <body>
-<h1>Auction</h1>
+  <div id="login-container">
+    <h1>Auction</h1>
 
-<label for="auction-id">Enter Auction ID:</label>
-<input type="text" id="auction-id" name="auction-id" />
-<button id="query-btn">Query</button>
-<div id="auction-data" style="display: none">
-  <h1>Auction Information</h1>
-  <img class="auction-image" id="auction-image" width=500px src="" alt="Auction Item">
-  <table id="auction-info-table">
-    <tr>
-      <th>Attribute</th>
-      <th>Value</th>
-    </tr>
-  </table>
-  <button id="show-bid-btn">Show all bids</button>
-  <div id="show-bid-result">
-    <table id="bidTable" style="display: none">
-      <tr>
-        <th>Bid ID</th>
-        <th>Bid Price</th>
-        <th>Bid Time</th>
-        <th>Bidder ID</th>
-        <th>Username</th>
-      </tr>
-    </table>
+    <label for="auction-id">Enter Auction ID:</label>
+    <input type="text" id="auction-id" name="auction-id" />
+    <button id="query-btn">Query</button>
+    <div id="auction-data" style="display: none">
+      <h1>Auction Information</h1>
+      <img class="auction-image" id="auction-image" width=500px src="" alt="Auction Item">
+      <table id="auction-info-table">
+        <tr>
+          <th>Attribute</th>
+          <th>Value</th>
+        </tr>
+      </table>
+      <button id="show-bid-btn">Show all bids</button>
+      <div id="show-bid-result">
+        <table id="bidTable" style="display: none">
+          <tr>
+            <th>Bid ID</th>
+            <th>Bid Price</th>
+            <th>Bid Time</th>
+            <th>Bidder ID</th>
+            <th>Username</th>
+          </tr>
+        </table>
+      </div>
+      <label for="bid-price">Enter Bid Price:</label>
+      <input type="number" id="bid-price" name="bid-price" />
+      <button id="bid-btn">Bid</button>
+      <div id="bid-result"></div>
+    </div>
+
+    <div id="auction-result"></div>
   </div>
-  <label for="bid-price">Enter Bid Price:</label>
-  <input type="number" id="bid-price" name="bid-price" />
-  <button id="bid-btn">Bid</button>
-  <div id="bid-result"></div>
-</div>
-
-<div id="auction-result"></div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="./style.css">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Login</title>
@@ -9,17 +10,19 @@
 
     <script type="module" src="login.js"></script>
   </head>
-  <body>
-    <form>
-      <label for="username">Enter username:</label><br />
-      <input type="text" id="username" name="username" /><br />
-      <label for="password">Enter password:</label><br />
-      <input type="text" id="password" name="password" /><br />
-      <label for="isAdmin"> Is Admin?</label>
-      <input type="checkbox" id="isAdmin" name="isAdmin" value="Admin" /><br />
-      <input type="submit" value="Submit" />
-    </form>
+  <body class="login-page">
+    <div id="login-container">
+      <form>
+        <label for="username">Enter username:</label><br />
+        <input type="text" id="username" name="username" /><br />
+        <label for="password">Enter password:</label><br />
+        <input type="password" id="password" name="password" /><br />
+        <label for="isAdmin"> Is Admin?</label>
+        <input type="checkbox" id="isAdmin" name="isAdmin" value="Admin" /><br />
+        <input type="submit" value="Submit" />
+      </form>
 
-    <div id="loginSuccess"></div>
+      <div id="loginSuccess"></div>
+    </div>
   </body>
 </html>

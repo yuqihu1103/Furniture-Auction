@@ -1,0 +1,611 @@
+/* Make the video fill the entire screen */
+.video-container {
+  position: relative;
+  height: 100vh; /* Full height of the viewport */
+  width: 100%; /* Full width of the viewport */
+  overflow: hidden; /* Hide anything that goes out of the container */
+}
+
+#background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This will ensure the video covers the entire area without stretching */
+    z-index: -1; /* This ensures the video stays behind all other content */
+}
+
+/* Add styles for the body to ensure the text and other elements are visible on top of the video */
+body {
+    background-color: #f8f6f2; /* Change the background color to a light color for contrast against the video */
+    position: relative;
+    font-family: 'Arial', sans-serif;
+    color: black; /* Change text color to white or another light color for contrast against the video */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align the content */
+    justify-content: center; /* Vertically center the content in the viewport */
+    min-height: 100vh; /* Make sure the body takes at least the height of the viewport */
+}
+
+/* Add styles for the text and links to ensure they are visible and styled properly */
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Transparent Navigation Bar */
+.transparent-navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* This will stretch the navbar-container to full width */
+  background: transparent;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s; /* Smooth transition for background color */
+  padding-bottom: 30px;
+}
+
+.transparent-navbar .dropdown,
+.transparent-navbar .navbar-title,
+.transparent-navbar .user-controls {
+  display: flex;
+  align-items: center; /* Align items vertically within each section */
+}
+
+/* Navbar Container (Wrap Dropdown, Title, and User Controls) */
+.navbar-container {
+  display: flex;
+  justify-content: space-between; /* Spread out the dropdown, title, and user controls */
+  align-items: center;
+  width: 100%; /* Make sure the container takes the full width */
+  padding: 10px 20px; /* Add padding back here */
+}
+
+.transparent-navbar:hover {
+  background-color: #ffffff; /* Change the background to white on hover */
+}
+
+.transparent-navbar:hover .dropbtn,
+.transparent-navbar:hover .navbar-title,
+.transparent-navbar:hover .user-controls a,
+.transparent-navbar:hover .secondary-nav a,
+.transparent-navbar:hover .fas {
+  color: #000000; /* Change text and icons to black on hover */
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Navbar Title */
+.navbar-title {
+  font-size: 30px; /* Adjust size as needed */
+  font-weight: 600;
+  color: #ffffff; /* Set default color to white */
+  font-family: 'Open+Sans', sans-serif;
+  transition: color 0.3s; /* Smooth transition for color */
+}
+
+/* User Controls */
+.user-controls a {
+  color: #ffffff; /* Set default color to white */
+  transition: color 0.3s; /* Smooth transition for color */
+  margin-right: 20px
+}
+
+.icon-link {
+  text-decoration: none;
+  color: inherit; 
+  font-size: 20px;
+}
+
+/* Secondary Navigation */
+.secondary-nav {
+  display: flex;
+  justify-content: space-around; /* Spread out the elements evenly */
+  width: 100%; /* Take full width to spread out the links */
+}
+
+.secondary-nav a {
+  text-decoration: none;
+  color: #ffffff; /* Set default color to white */
+  font-weight: bold;
+  font-family: 'Cursive', sans-serif;
+  transition: color 0.3s; /* Smooth transition for color */
+}
+
+.fas {
+  color: #ffffff; /* Set default color to white */
+  transition: color 0.3s; /* Smooth transition for color */
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .transparent-navbar {
+    flex-direction: column;
+  }
+  .secondary-nav {
+    order: -1; /* Move secondary nav above on small screens */
+    bottom: auto;
+    top: 60px; /* Adjust this value based on the actual height of your primary nav */
+  }
+}
+
+.buttons-container button {
+  margin-left: 10px;
+  background-color: transparent; /* No background color for a flat design */
+  border: 2px solid #333; /* Solid border with a neutral color */
+  color: #333; /* Neutral text color */
+  font-family: 'Arial', sans-serif; /* Modern, sans-serif font */
+  font-size: 16px; /* Adequate font size for readability */
+  padding: 10px 20px; /* Vertical and horizontal padding */
+  margin: 10px; /* Margin around buttons */
+  cursor: pointer; /* Cursor indicates button */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  border-radius: 5px; /* Slightly rounded corners for a modern look */
+  outline: none; /* Removes the outline to keep the minimalist look */
+}
+
+/* Hover effect */
+.buttons-container button:hover {
+  background-color: #333; /* Background color on hover */
+  color: #fff; /* Text color on hover */
+  border-color: #333; /* Border color on hover (same as background) */
+}
+
+/* Active button style */
+.buttons-container button:active {
+  transform: scale(0.98); /* Slightly shrink the buttons when clicked */
+}
+
+.buttons-container button:focus {
+  border-color: #555; /* Slightly darker border for focused button */
+}
+
+/* Style adjustments for when the button is disabled, if needed */
+.buttons-container button:disabled {
+  color: #aaa;
+  border-color: #aaa;
+  cursor: not-allowed;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end; /* Align all items to the end (right) */
+  flex-wrap: wrap; /* Allow items to wrap if needed */
+  gap: 10px; /* Add a gap between items */
+  width: 100%; /* Full width */
+  margin-bottom: 20px;
+}
+
+.content-container {
+  width: calc(100% - 100px); /* Ensure the container takes up full width */
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f6f2;
+
+}
+
+/* Style for label to resemble button aesthetics */
+.buttons-container label {
+  display: inline-block; /* Align with inline elements */
+  background-color: transparent; /* No background for a flat design */
+  color: #333; /* Neutral text color */
+  font-family: 'Arial', sans-serif; /* Consistent font */
+  padding: 10px 20px; /* Same vertical and horizontal padding as buttons */
+  margin-right: 10px; /* Margin to separate from the input field */
+  border: 2px solid transparent; /* Transparent border to match buttons */
+  font-size: 16px; /* Same font size as buttons */
+  border-radius: 5px; /* Rounded corners */
+  line-height: 1.5; /* Align vertically with input height */
+  cursor: default; /* Default cursor for label */
+}
+
+/* Style for input field to align with button aesthetics */
+.buttons-container input[type="text"] {
+  background-color: #333; /* Dark background for the button */
+  color: #fff; /* White text */
+  border: none;
+  cursor: pointer;
+  display: inline-block; /* Align with inline elements */
+  height: 45px;
+  width: auto; /* Auto width to fit content */
+  max-width: 200px; /* Maximum width to control the size */
+  padding: 10px; /* Same padding as buttons */
+  margin-bottom: 0; /* No bottom margin needed */
+  border: 2px solid #333; /* Border to match button style */
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box; /* Include padding and border in the element's width */
+  font-size: 16px; /* Match font size with buttons */
+}
+
+.buttons-container button:hover,
+.buttons-container input[type="text"]:hover {
+  background-color: #444; /* Slightly darker background on hover */
+}
+
+/* Placeholder inside the input field */
+.buttons-container input[type="text"]::placeholder {
+  color: #fff; /* Light color placeholder text */
+  opacity: 0.7; /* Slightly transparent */
+}
+
+/* Adjustments for the 'Filter by Type' button to be inline with input */
+.buttons-container #filter-btn {
+  vertical-align: top; /* Align with the top of the text input */
+}
+
+#furniture-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%; /* Full width to allow child items to expand */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align the furniture cards */
+  background-color: #f8f6f2;
+  margin-bottom: 200px
+}
+
+.furniture-card {
+  display: flex; /* Enables flexbox layout */
+  flex-direction: row; /* Keeps the order of flex items as they appear in the markup */
+  align-items: center; /* Aligns items vertically in the center */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Simple box shadow for styling */
+  border-radius: 10px; /* Rounded corners for the card */
+  overflow: hidden; /* Ensures content fits within the card */
+  background: #fff; /* Card background color */
+  margin-bottom: 20px; /* Space between cards */
+  width: 90%; /* Card takes up 80% of the screen width */
+  margin-left: auto; /* Centers the card horizontally */
+  margin-right: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions for interaction */
+}
+
+.furniture-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover for depth */
+}
+
+
+.furniture-image-container,
+.furniture-image {
+  width: 70%; /* Image takes up half the card width */
+  height: 600px; /* Fixed height for all images */
+  object-fit: cover; /* Cover the area, maintaining aspect ratio */
+  border-radius: 0 0 10px 10px; /* Rounded corners on the bottom right */
+}
+
+.furniture-info {
+  padding: 40px; /* Padding within the text area for the content */
+  width: 30%;
+  text-align: center; /* Align text to the left */
+  border-radius: 10px 0 0 10px; /* Rounded corners on the top left */
+}
+
+
+.furniture-title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.furniture-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.furniture-id,
+.furniture-seller,
+.furniture-condition {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+
+.site-footer {
+  background-color: #333; /* Dark background for the footer */
+  color: #fff; /* White text color */
+  font-size: 0.8rem;
+  padding: 20px 0; /* Padding on top and bottom */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  margin-top: 20px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center; /* Space out the footer sections */
+  padding-bottom: 20px;
+}
+
+.footer-section {
+  flex: 1; /* Ensure each section takes up equal space */
+  padding: 0 20px; /* Add padding on the sides */
+}
+
+.footer-section h4 {
+  margin-top: 0; /* Remove top margin from headings */
+  color: #f8f6f2; /* Light color for headings */
+}
+
+.footer-section p, .footer-section ul {
+  margin-bottom: 0; /* Remove bottom margin from paragraphs and lists */
+}
+
+.footer-links {
+  list-style: none; /* Remove bullets from list */
+  padding-left: 0; /* Remove padding from list */
+}
+
+.footer-links li a {
+  color: #fff; /* White text color for links */
+  text-decoration: none; /* No underline on links */
+}
+
+.footer-links li a:hover {
+  text-decoration: underline; /* Underline on hover for links */
+}
+
+.footer-bottom {
+  text-align: center; /* Center-align the bottom text */
+  padding-top: 10px; /* Add space above the bottom text */
+  border-top: 1px solid #444; /* Add a subtle border above the bottom text */
+}
+
+body.register-page {
+  background-color: #f8f6f2; /* Light background for contrast */
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  display: flex;
+  justify-content: center; /* Center the form in the viewport */
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+body.login-page {
+  background-color: #f8f6f2; /* Light background for contrast */
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  display: flex;
+  justify-content: center; /* Center the form in the viewport */
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  display: block; /* Ensure inputs are block level to fill width */
+  width: calc(100% - 20px); /* Full width minus padding */
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Slightly rounded corners for the input fields */
+}
+
+input[type="checkbox"] {
+  margin-bottom: 20px;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333; /* Dark background for submit button */
+  color: #fff; /* White text color */
+  cursor: pointer; /* Cursor to pointer to indicate clickable */
+}
+
+input[type="submit"]:hover {
+  background-color: #444; /* Darken the button slightly on hover */
+}
+
+/* If you need a success message styled */
+#loginSuccess,
+#RegisterSuccess {
+  color: green;
+  margin-top: 20px;
+}
+
+/* If you need a redirect message or link styled */
+#redirect {
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  form {
+    padding: 20px;
+  }
+}
+
+#login-container {
+  background: #fff; /* White background for the card */
+  padding: 40px; /* Generous padding for aesthetics */
+  border-radius: 10px; /* Rounded corners for the card-like look */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Appropriate width */
+  max-width: 400px; /* Maximum width to maintain form proportions */
+  margin: auto; /* Center the card vertically and horizontally */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#login-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Increased shadow on hover for more depth */
+  transform: translateY(5%); /* Slightly raise the card on hover */
+}
+
+#register-container {
+  background: #fff; /* White background for the card */
+  padding: 40px; /* Generous padding for aesthetics */
+  border-radius: 10px; /* Rounded corners for the card-like look */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Appropriate width */
+  max-width: 400px; /* Maximum width to maintain form proportions */
+  margin: auto; /* Center the card vertically and horizontally */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */ /* Push the card down a bit from the center */
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#register-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Increased shadow on hover for more depth */
+  transform: translateY(5%); /* Slightly raise the card on hover */
+}
+
+#addFurniture_container{
+  background: #fff; /* White background for the card */
+  padding: 40px; /* Generous padding for aesthetics */
+  border-radius: 10px; /* Rounded corners for the card-like look */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Appropriate width */
+  max-width: 400px; /* Maximum width to maintain form proportions */
+  margin: auto; /* Center the card vertically and horizontally */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */ /* Push the card down a bit from the center */
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#addFurniture_container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Increased shadow on hover for more depth */
+  transform: translateY(5%); /* Slightly raise the card on hover */
+}
+
+#start_auction_container{
+  background: #fff; /* White background for the card */
+  padding: 40px; /* Generous padding for aesthetics */
+  border-radius: 10px; /* Rounded corners for the card-like look */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Appropriate width */
+  max-width: 400px; /* Maximum width to maintain form proportions */
+  margin: auto; /* Center the card vertically and horizontally */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */ /* Push the card down a bit from the center */
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#start_auction_container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Increased shadow on hover for more depth */
+  transform: translateY(5%); /* Slightly raise the card on hover */
+}
+
+#login-container{
+  background: #fff; /* White background for the card */
+  padding: 40px; /* Generous padding for aesthetics */
+  border-radius: 10px; /* Rounded corners for the card-like look */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Appropriate width */
+  max-width: 400px; /* Maximum width to maintain form proportions */
+  margin: auto; /* Center the card vertically and horizontally */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */ /* Push the card down a bit from the center */
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#login-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Increased shadow on hover for more depth */
+  transform: translateY(5%); /* Slightly raise the card on hover */
+}
+
+form {
+  width: 100%; /* Use full width of the container */
+}
+
+input[type="text"],
+input[type="password"] {
+  display: block; /* Ensure inputs are block level to fill width */
+  width: calc(100% - 20px); /* Full width minus padding */
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Slightly rounded corners for the input fields */
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333; /* Dark background for submit button */
+  color: #fff; /* White text color */
+  cursor: pointer; /* Cursor to pointer to indicate clickable */
+}
+
+input[type="submit"]:hover {
+  background-color: #444; /* Darken the button slightly on hover */
+}
+
+#query-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333; /* Dark background for submit button */
+  color: #fff; /* White text color */
+  cursor: pointer; /* Cursor to pointer to indicate clickable */
+}
+
+#query-btn:hover {
+  background-color: #444; /* Darken the button slightly on hover */
+}
+
+label {
+  margin-bottom: 5px;
+}

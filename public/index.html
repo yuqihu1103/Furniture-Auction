@@ -1,31 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/6f88500abb.js" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6f88500abb.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Furniture Auction</title>
-    <script type='module' src='main.js'></script>
+    <title>BigSale!</title>
   </head>
   <body>
-    <h1>Furniture Auction</h1>
+    <div class="video-container">
+      <video id="background-video" autoplay muted loop playsinline></video>
+      <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+      <script>
+          var video = document.getElementById('background-video');
+          if (Hls.isSupported()) {
+              var hls = new Hls();
+              hls.loadSource('./resources/mc48z6t9kc.m3u8');
+              hls.attachMedia(video);
+              hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                  video.play();
+              });
+          }
+          else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+              video.src = './resources/mc48z6t9kc.m3u8';
+              video.addEventListener('loadedmetadata', function() {
+                  video.play();
+              });
+          }
+      </script>
+      <script type='module' src='main.js'></script>
 
-    <a href="register.html" id="registerUI">Register</a>
-    <a href="login.html" id="loginUI">Login</a>
-    <a href="add_furniture.html" id="addFurniture">Add Furniture</a>
-    <a href="start_auction.html" id="startAuction">Start Auction</a>
-    <a href="auction_detail.html" id="auctionDetail">Auction Detail</a>
-    <a href="view_history.html" id="viewHistory">Recently Viewed</a>
-    <br>
-    <button id="showFurniture">Show Furniture</button>
-    <button id="orderByLikes">Sort by Likes</button>
-    <label for="filter-type">Enter type:</label>
-    <input type="text" id="filter-type" name="filter-type" />
-    <button id="filter-btn">Filter by Type</button>
-    <button id="showMyFurniture">Show My Furniture</button>
-    <ul id="furniture-list">
+      <nav class="transparent-navbar">
+        <div class="navbar-container">
 
+          <div class="dropdown">
+            <button class="dropbtn"><i class="fas fa-bars"></i></button>
+            <!-- Dropdown Content -->
+            <div class="dropdown-content">
+              <!-- <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a> -->
+            </div>
+          </div>
+          
+          <div class="navbar-title">Furniture Auction</div>
+          <!-- Icons on the right -->
+          <div class="user-controls">
+            <a href="register.html" id="registerUI"><i class="fas fa-user-plus"></i></a>
+            <a href="login.html" id="loginUI"><i class="fas fa-user-circle"></i></a>
+          </div>
+        </div>
 
-    </ul>
+        <div class="secondary-nav">
+          <a href="add_furniture.html" id="addFurniture">Add Furniture</a>
+          <a href="start_auction.html" id="startAuction">Start Auction</a>
+          <a href="auction_detail.html" id="auctionDetail">Auction Detail</a>
+          <a href="view_history.html" id="viewHistory">Recently Viewed</a>
 
+        </div>
+      </nav>
+
+    </div>
+    
+
+    <!-- <a href="register.html" id="registerUI">Register</a>
+    <a href="login.html" id="loginUI">Login</a> -->
+  
+    <br> <br> <br> <br>
+    <div class="content-container">
+      <div class="buttons-container">
+        <button id="showMyFurniture">Show My Furniture</button>
+        <button id="showFurniture">Default Order</button>
+        <button id="orderByLikes">Sort by Likes</button>
+
+        <input type="text" id="filter-type" name="filter-type" placeholder="Enter type" />
+        <button id="filter-btn">Filter by Type</button>
+        
+
+      </div>
+      <ul id="furniture-list">
+      </ul>
+    </div>
+    <br> <br>
+    
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>About Us</h4>
+          <p>Discover the story behind our furniture auction platform and our commitment to quality.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>Email: contact@furnitureauction.com</p>
+          <p>Phone: +123 456 7890</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Auctions</a></li>
+            <li><a href="#">My Account</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Furniture Auction. All Rights Reserved.</p>
+      </div>
+    </footer>
+    
+    <script>
+      // Toggle navigation bar background on scroll
+      window.addEventListener('scroll', function() {
+          const navbar = document.querySelector('.navbar');
+          if(window.scrollY > 50) {
+              navbar.classList.add('solid');
+          } else {
+              navbar.classList.remove('solid');
+          }
+      });
+
+      // Toggle dropdown menu on click
+      document.querySelector('.menu-icon').addEventListener('click', function() {
+          document.querySelector('.dropdown-menu').classList.toggle('show-dropdown');
+      });
+    </script>
+      
+  
   </body>
 </html>

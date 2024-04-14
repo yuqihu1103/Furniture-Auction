@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="./style.css">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Furniture</title>
@@ -8,15 +9,17 @@
 </head>
 <body>
 <form>
-    <label for="type">Enter type:</label><br />
-    <input type="text" id="type" name="type" /><br />
-    <label for="description">Enter description:</label><br />
-    <input type="text" id="description" name="description" /><br />
-    <label for="picture_urls">Enter picture_urls:</label>
-    <input type="text" id="picture_urls" name="picture_urls" /><br />
-    <label for="condition">Enter condition:</label>
-    <input type="text" id="condition" name="condition" /><br />
-    <input type="submit" value="Submit" />
+    <div id="addFurniture_container">
+        <label for="type">Enter type:</label><br />
+        <input type="text" id="type" name="type" /><br />
+        <label for="description">Enter description:</label><br />
+        <input type="text" id="description" name="description" /><br />
+        <label for="picture_urls">Enter picture_urls:</label>
+        <input type="text" id="picture_urls" name="picture_urls" /><br />
+        <label for="condition">Enter condition:</label>
+        <input type="text" id="condition" name="condition" /><br />
+        <input type="submit" value="Submit" />
+    </div>
 </form>
 
 <div id="add_furniture_success"></div>
