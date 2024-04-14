@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         loginSuccessDiv.textContent = data.message;
+        window.location.href = "/";
       } else {
         loginSuccessDiv.textContent = data.error;
       }
