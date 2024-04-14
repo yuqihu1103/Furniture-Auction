@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const queryBtn = document.getElementById("query-btn")
     const auctionDataDiv = document.getElementById("auction-data");
     const auctionResultDiv = document.getElementById("auction-result");
@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const showBidBtn = document.getElementById("show-bid-btn");
     const showBidResultDiv = document.getElementById("show-bid-result");
     const bidTable = document.getElementById("bidTable");
-    queryBtn.addEventListener("click", async (event) => {
-        event.preventDefault();
-        const auctionId = document.getElementById('auction-id').value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const auctionId = urlParams.get('id');
+    if (auctionId) {
         try {
             const response = await fetch(`/auctions/${auctionId}`);
             const data = await response.json();
@@ -31,6 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     const cell2 = row.insertCell(1);
                     cell1.textContent = key;
                     cell2.textContent = value;
+
+                    if (key === "furniture_id") {
+                        const furnitureId = value;
+                        fetch("/view", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({furnitureId}),
+                        });
+                    }
                 }
                 auctionDataDiv.style.display = "block";
                 auctionResultDiv.style.display = "none";
@@ -46,6 +57,18 @@ document.addEventListener("DOMContentLoaded", () => {
             auctionDataDiv.style.display = "none";
             auctionResultDiv.style.display = "block";
         }
+    }
+    queryBtn.addEventListener("click", async (event) => {
+        event.preventDefault();
+        const auctionId = document.getElementById("auction-id").value;
+        console.log(auctionId);
+        if(!auctionId || auctionId === ""){
+            auctionResultDiv.textContent =
+                "Please input auction id";
+            auctionDataDiv.style.display = "none";
+            auctionResultDiv.style.display = "block";
+        }
+        else window.location.href = `/auction_detail.html?id=${auctionId}`;
     });
 
     bidBtn.addEventListener("click", async (event) => {
@@ -58,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ auctionId, bidPrice }),
+                body: JSON.stringify({auctionId, bidPrice}),
             });
             const data = await response.json();
             if (response.ok) {
@@ -75,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     showBidBtn.addEventListener("click", async (event) => {
         event.preventDefault();
-        const auctionId = document.getElementById('auction-id').value;
         try {
             const response = await fetch(`/get_bids/${auctionId}`);
             const data = await response.json();
