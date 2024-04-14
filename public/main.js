@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const listFurn = document.getElementById("furniture-list");
     const button = document.getElementById("showFurniture");
     const button1 = document.getElementById("orderByLikes");
+    const button2 = document.getElementById("filter-btn");
     const showMyFurnitureBtn = document.getElementById("showMyFurniture");
     button.addEventListener("click", async (event) => {
       event.preventDefault();
@@ -94,6 +95,38 @@ document.addEventListener("DOMContentLoaded", () => {
                         + " Description : " + data[i].description + "<img src="+ data[i].picture_urls +" width=300px> " + "</img>" +
                         " Seller ID : " + data[i].seller_id + " Condition : "+ data[i].condition + " Likes : " + data[i].like_count + "</li>";
 
+                }
+
+            } else {
+                console.log("Adaddsasdas");
+                listFurn.innerHTML = data.error;
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+
+    button2.addEventListener("click", async (event) => {
+        event.preventDefault();
+        console.log("event")
+        listFurn.innerHTML = "";
+        const type = document.getElementById("filter-type").value;
+        if(!type || type === ""){
+            listFurn.innerHTML = "Please input a type";
+            return;
+        }
+        try {
+            const response = await fetch(`/furniture_type?type=${type}`);
+            const data = await response.json();
+            if (response.ok) {
+                if(data.length == 0){
+                    listFurn.innerHTML = "No result";
+                    return;
+                }
+                for(let i = 0; i < data.length; i++){
+                    listFurn.innerHTML += "<li>" + "Furniture ID : " + data[i].furniture_id + " Type :" + data[i].type
+                        + " Description : " + data[i].description + "<img src="+ data[i].picture_urls +" width=300px> " + "</img>" +
+                        " Seller ID : " + data[i].seller_id + " Condition : "+ data[i].condition + " Likes : " + data[i].like_count + "</li>";
                 }
 
             } else {

@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/furniture_type", (req, res) => {
   // Connect to the database
   const connection = connectToDatabase();
-  const { type } = req.body;
+  const type = req.query.type;
 
   // Query to retrieve all furniture details ranked by likes
   const query = `
