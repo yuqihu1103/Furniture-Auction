@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="user-list">
+        <h2>User List</h2>
+        <ul id="userList">
+          <!-- User list will be populated dynamically -->
+        </ul>
+      </div>
+      <div class="chat-box">
+        <div id="chatHistory">
+          <!-- Chat history will be displayed here -->
+        </div>
+        <div class="message-input">
+          <input
+            type="text"
+            id="messageInput"
+            placeholder="Type your message..."
+          />
+          <button id="sendMessageBtn">Send</button>
+        </div>
+      </div>
+    </div>
+    <div class="back"><a href="index.html" id="back">Back to Dashbard</a></div>
+
+    <script src="chat.js"></script>
+  </body>
+</html>
