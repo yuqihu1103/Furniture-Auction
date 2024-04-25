@@ -39,5 +39,13 @@ To get started with this project, follow these steps:
     npm run dev
    ```
 
+## Technologies
+
+Backend: Node, Express, MySQL
+
+Frontend: HTML, CSS, Bootstrap
+
+Others: Google Cloud Platform
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
